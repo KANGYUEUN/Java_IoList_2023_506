@@ -136,7 +136,9 @@ public class ProductServiceImplV1 implements ProductService {
 		if (value == null && strValue.isEmpty()) {
 			HelpMessage.ERROR(title + "는(은) 반드시 입력해야 합니다.");
 			return "RE";
-		} 
+		} else if (value != null && strValue.isEmpty()) {
+			return value;
+		}
 		return strValue;
 	}
 
