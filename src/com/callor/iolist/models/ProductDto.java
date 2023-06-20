@@ -34,9 +34,10 @@ public class ProductDto {
 		float oprice = iprice * 1.22F;
 		
 		// (int)(oprice / 10) : 소수점 이하 자르기
-		oprice = Math.round(oprice/10); //  소수점 첫자리 반올림
+		oprice = Math.round(oprice/10) * 10 ; //  소수점 첫자리 반올림
 		
 		this.pOPrice =(int)oprice;
+		this.pIPrice = iprice;
 	}
 
 	// 정보의 은닉 켑슐화

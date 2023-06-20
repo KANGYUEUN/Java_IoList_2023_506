@@ -16,8 +16,8 @@ public class DBContract {
 	// table 정보 설정
 	public static class TABLE {
 		public static final String BUYER = " tbl_buyer ";
-		public static final String PRODUCT = " tbl_buyer ";
-		public static final String IOLIST = " tbl_buyer ";
+		public static final String PRODUCT = " tbl_product ";
+		public static final String IOLIST = " tbl_iolist";
 	}
 
 	// 칼럼 index 정보 설정

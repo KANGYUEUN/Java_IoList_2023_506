@@ -98,8 +98,9 @@ SELECT MAX(buid) FROM tbl_buyer;
 SELECT MIN(buid) FROM tbl_buyer;
 
 
+DESC tbl_product;
 
-
+ALTER TABLE tbl_product MODIFY PITEM nVARCHAR2(10);
 
 
 
