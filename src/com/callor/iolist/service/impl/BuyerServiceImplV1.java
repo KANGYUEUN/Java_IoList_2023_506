@@ -167,6 +167,12 @@ public class BuyerServiceImplV1 implements BuyerService {
 			if(buyerList == null || buyerList.isEmpty()) {
 				HelpMessage.ERROR("찾는 고객이름이 없습니다.");
 				continue;
+			} else if(buyerList.size() < 2) {
+				// 2 < : 리스트가 하나 뿐이라면.
+				// 이름으로 검색한 고객의 데이터가 1개 뿐일 경우
+				// ID 를 검색하는 절차가 필요 없다.
+				// 검색한 1개의 데이터를 return 한다.
+				return buyerList.get(0);
 			}
 			
 			// 리스트 출력

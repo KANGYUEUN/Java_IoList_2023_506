@@ -56,12 +56,13 @@ public class ProductServiceImplV1 implements ProductService {
 		} // 상품코드 입력 while end..
 		HelpMessage.ALERT("입력한 상품 코드  : " + productDto.pCode);
 
-		
 		// 상품명 입력받기
 		while (true) {
 			String strName = this.inputValue("상품명", productDto.pName);
-			if (strName.equals("QUIT"))	return;
-			else if (strName.equals("RE"))continue;
+			if (strName.equals("QUIT"))
+				return;
+			else if (strName.equals("RE"))
+				continue;
 			else if (productDto.pName == null && strName.isEmpty()) {
 				HelpMessage.ERROR("상품명은 반드시 입력해야 합니다.");
 				continue;
@@ -72,15 +73,15 @@ public class ProductServiceImplV1 implements ProductService {
 
 		HelpMessage.ALERT("입력받은 상품명 : " + productDto.pName);
 
-		
 		// 품목명 입력받기
 		while (true) {
 			String strPName = this.inputValue("품목명", productDto.pItem);
 			if (strPName.equals("QUIT"))
 				return;
-			else if (strPName.equals("RE"))	continue;
+			else if (strPName.equals("RE"))
+				continue;
 			else if (productDto.pItem == null && strPName.isEmpty()) {
-				HelpMessage.ERROR("품목명을 입력해 주세요 "); 
+				HelpMessage.ERROR("품목명을 입력해 주세요 ");
 				continue;
 			}
 			productDto.pItem = strPName;
@@ -88,7 +89,6 @@ public class ProductServiceImplV1 implements ProductService {
 		}
 		HelpMessage.ALERT("입력받은 품목명 : " + productDto.pItem);
 
-		
 		// 매입단가 입력받기
 		while (true) {
 			String strIPrice = productDto.getIPrice() == 0 ? null : productDto.getIPrice() + "";
@@ -172,14 +172,55 @@ public class ProductServiceImplV1 implements ProductService {
 
 	@Override
 	public ProductDto fintByPCode() {
-		// TODO Auto-generated method stub
-		return null;
+		while (true) {
+			System.out.println(Line.dLine(70));
+			System.out.println("상품정보를 확인합니다.");
+			System.out.println("상품코드를 입력해 주세요 OUIT : 종료.");
+			System.out.print("상품코드 >> ");
+			String strPCode = scan.nextLine();
+			if (strPCode.isBlank()) {
+				HelpMessage.ERROR("상품코드를 입력해 주세요!");
+				continue;
+			} else if (strPCode.equals("QUIT")) {
+				return null;
+			}
+			ProductDto productDto = proDao.findById(strPCode);
+			if (productDto == null) {
+				HelpMessage.ERROR(String.format("상품 코드를 찾을수 없습니다.(%s)", strPCode));
+			} else if (productDto != null) {
+				printProduct(productDto);
+				return productDto;
+			}
+		}
 	}
 
+	// 고객이름으로 찾기
 	@Override
 	public ProductDto fintByPName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		while(true) {
+			System.out.println(Line.dLine(70));
+			System.out.println("상품정보를 확인합니다.");
+			System.out.println("상품이름를 입력해 주세요. OUIT : 종료.");
+			System.out.print("상품이름 >> ");
+			String strPName = scan.nextLine();
+			if(strPName.isBlank()) {
+				HelpMessage.ERROR("상품이름을 입력해 주세요 ");
+				continue;
+			} else if (strPName.equals("QUIT")) return null;
+			
+			List<ProductDto> productList = proDao.findByPName(strPName);
+			if(productList.isEmpty()) {
+				HelpMessage.ERROR(String.format("상품이름을 찾을수 없습니다.(%s)", strPName));
+			} else if( productList.size() < 2) {
+				return productList.get(0);
+			}
+			this.printList(productList);
+			
+			ProductDto productDto = this.fintByPCode();
+			if(productDto != null) return productDto;
+			
+		}
 	}
 
 }

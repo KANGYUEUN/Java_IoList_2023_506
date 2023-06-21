@@ -32,7 +32,7 @@ public interface IolistService {
 	public void selectBetwenDate();
 
 	// 고객별 리스트
-	public void selectByBuyerDate();
+	public void selectByBuyer();
 
 	// 상품별 리스트
 	public void selectByProduct();
